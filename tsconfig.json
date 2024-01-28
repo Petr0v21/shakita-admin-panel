@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["eslint"],
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"],
+      "@app/*": ["app/*"],
+      "@generated/*": ["generated/*"],
+      "@static/*": ["static/*"],
+      "@images/*": ["static/images/*"],
+      "@stores/*": ["stores/*"],
+      "@component/*": ["app/component/*"],
+      "@styled/*": ["app/styled-components/*"],
+      "@services/*": ["shared/services/*"],
+    }
+  },
+  "include": ["./src/*", "src/custom.d.ts", "./src/app/*"]
+}
