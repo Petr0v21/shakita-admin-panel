@@ -44,7 +44,7 @@ class UserStore {
       const accessToken = (
         await JSON.parse(localStorage.getItem('tokens') as string)
       ).accessToken;
-      const result = await fetch('http://localhost:3000/file/upload', {
+      const result = await fetch('https://shakita-core.onrender.com/file/upload', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
