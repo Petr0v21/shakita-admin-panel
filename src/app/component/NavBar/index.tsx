@@ -45,9 +45,7 @@ const NavBar: React.FC = () => {
           text="Exit"
           handler={() => {
             navigate('/');
-            console.log('before', localStorage, isAuthenticated);
             logout();
-            console.log('after', localStorage, isAuthenticated);
           }}
         />
       </StyledNavBar>

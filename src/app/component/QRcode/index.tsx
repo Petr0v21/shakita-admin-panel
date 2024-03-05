@@ -7,7 +7,6 @@ const QRcodeScanner: React.FC<{ handler: (value: string) => void }> = ({
   const resultHandler: OnResultFunction = (data) => {
     const value = data?.getText();
     if (value) {
-      console.log('QR code result', value);
       handler(value);
     }
   };

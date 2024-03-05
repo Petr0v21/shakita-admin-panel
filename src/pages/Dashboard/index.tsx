@@ -62,7 +62,6 @@ const Dashboard: React.FC = () => {
         fillEmptyMonth: true,
       })
       .then((res) => {
-        console.log('getHistoryData', res);
         if (res) {
           setAnalyticsHistoryState(res as AnalyticsAllHistoryDataType);
         }

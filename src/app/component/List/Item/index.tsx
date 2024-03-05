@@ -20,7 +20,7 @@ const Item: React.FC<ListItemProps> = ({ values, id, children, isHeader }) => {
         }, 1500);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
   return (

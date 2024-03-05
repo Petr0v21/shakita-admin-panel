@@ -28,7 +28,6 @@ const BonusPage: React.FC = () => {
       })
       .then((res) => {
         if (res) {
-          console.log(res);
           setList(withFilter ? (res as Bonus[]) : list.concat(res as Bonus[]));
         }
       });

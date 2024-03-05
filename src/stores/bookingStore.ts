@@ -42,7 +42,6 @@ class BookingStore {
   async book(data: MutationCreateOneApplicationArgs) {
     try {
       const result = await this.bookingService.book(data);
-      console.log(result);
       this.cleanForm();
       return result;
     } catch (err) {
@@ -53,7 +52,6 @@ class BookingStore {
   async find() {
     try {
       const result = await this.bookingService.find({ date: this.body.date });
-      console.log(result);
       return result;
     } catch (err) {
       console.error('find Error', err);
@@ -62,11 +60,10 @@ class BookingStore {
 
   async findBy(props: QueryFindApplicationsArgs) {
     try {
-      console.log('props', props);
       const result = await this.bookingService.findBy({
         ...props,
       });
-      console.log('result', result);
+
       return result;
     } catch (err) {
       console.error('findBy Error', err);
@@ -76,7 +73,6 @@ class BookingStore {
   async findOne(id: string) {
     try {
       const result = await this.bookingService.findOne({ id });
-      console.log(result);
       return result;
     } catch (err) {
       console.error('findOne Error', err);

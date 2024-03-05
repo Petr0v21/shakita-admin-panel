@@ -24,7 +24,6 @@ export class AuthService {
       }),
       data,
     );
-    console.log(res);
     if (res) {
       localStorage.setItem('tokens', JSON.stringify(res));
       return (res as any).refreshToken ? true : false;
@@ -40,7 +39,6 @@ export class AuthService {
       }),
       data,
     );
-    console.log(res);
     if (res) {
       localStorage.setItem('tokens', JSON.stringify(res));
       return (res as any).refreshToken ? true : false;

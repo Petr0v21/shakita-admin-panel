@@ -29,9 +29,6 @@ const App: React.FC = () => {
     isAuthenticated,
     checkAuth,
   } = useAuth();
-  useEffect(() => {
-    console.log('isAuthenticated', isAuthenticated, token);
-  }, [isAuthenticated, logout]);
   return (
     <AuthContext.Provider
       value={{
@@ -103,6 +100,7 @@ const App: React.FC = () => {
             draggable
             pauseOnHover
             theme="dark"
+            style={{ padding: '1em' }}
           />
         </BrowserRouter>
       </ModalProvider>

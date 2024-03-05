@@ -85,12 +85,10 @@ export class UserService {
       }),
       data,
     );
-    console.log('findUsers', res);
     return res;
   }
 
   async findOne(data: QueryFindOneUserArgs) {
-    console.log('find data', data);
     const res = await query(
       findOneUser({
         id: true,
@@ -117,24 +115,22 @@ export class UserService {
       }),
       data,
     );
-    console.log(res);
+
     return res;
   }
 
   async update(data: MutationUpdateMeArgs) {
-    console.log('update data', data);
     const res = await query(
       updateMe({
         success: true,
       }),
       data,
     );
-    console.log(res);
+
     return res;
   }
 
   async createOneUser(data: MutationCreateOneUserArgs) {
-    console.log('create One user data', data);
     const res = await query(
       createOneUser({
         id: true,
@@ -145,31 +141,29 @@ export class UserService {
       }),
       data,
     );
-    console.log(res);
+
     return res;
   }
 
   async updateOneUser(data: MutationUpdateOneUserArgs) {
-    console.log('update One user data', data);
     const res = await query(
       updateOneUser({
         success: true,
       }),
       data,
     );
-    console.log(res);
+
     return res;
   }
 
   async deleteOneUser(data: MutationDeleteOneUserArgs) {
-    console.log('delete One user data', data);
     const res = await query(
       deleteOneUser({
         success: true,
       }),
       data,
     );
-    console.log(res);
+
     return res;
   }
 }

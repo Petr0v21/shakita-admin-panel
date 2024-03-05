@@ -54,7 +54,7 @@ export const SpanComponent: React.FC<{
         }, 1500);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
   const navigate = useNavigate();

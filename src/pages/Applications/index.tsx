@@ -1,23 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import store from '../../stores/bookingStore';
 import { useNavigate } from 'react-router';
 import { ApplicationFilter, ApplicationDBType } from '@/types';
-import { Button, ButtonListItem } from '@/app/styled-components/Button';
+import { ButtonListItem } from '@/app/styled-components/Button';
 import Item from '@/app/component/List/Item';
 import { Styledlist } from '@/app/styled-components/List';
 import { ApplicationStatus } from '@/generated/types';
 import { InputComponentChildren } from '@/app/styled-components/Input';
 import { DropDownComponentChildren } from '@/app/styled-components/Select';
 import { StyledListPage } from '@/app/styled-components/ListPage';
+import CalendarImage from '@images/Calendar-icon.svg';
 import { toast } from 'react-toastify';
+import ModalContext from '@/context/ModalContext';
+import Calendar from '@app/component/Calendar';
 
-const ApplicationsPage = () => {
+const ApplicationsPage: React.FC = () => {
+  const modal = useContext(ModalContext);
   const [list, setList] = useState<ApplicationDBType[]>([]);
   const [show, setShow] = useState<boolean>(false);
   const [filter, setFilter] = useState<ApplicationFilter>({
     status: ApplicationStatus.Pending,
-    date_from: new Date(),
-    date_to: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+    date_from: new Date(
+      new Date(new Date().setMinutes(0)).setSeconds(0),
+    ).toISOString(),
+    date_to: new Date(
+      new Date(new Date(new Date().setMinutes(0)).setSeconds(0)).setFullYear(
+        new Date().getFullYear() + 1,
+      ),
+    ).toISOString(),
   });
   const navigate = useNavigate();
 
@@ -29,7 +39,6 @@ const ApplicationsPage = () => {
       })
       .then((res) => {
         if (res) {
-          console.log(res);
           setList(
             withFilter
               ? (res as ApplicationDBType[])
@@ -44,13 +53,11 @@ const ApplicationsPage = () => {
   const observerTarget = useRef(null);
 
   useEffect(() => {
-    console.log('filter', { ...filter });
     getList(true);
   }, [filter]);
 
   useEffect(() => {
     if (show) {
-      console.log('show filter', { ...filter });
       getList();
       setShow(false);
     }
@@ -102,6 +109,36 @@ const ApplicationsPage = () => {
         <InputComponentChildren
           hasValue={!!filter.date_from}
           labelText="date_from"
+          source={CalendarImage}
+          imgHandler={() => {
+            modal?.open(
+              <Calendar
+                active={true}
+                setDay={(date) => {
+                  if (filter.date_from) {
+                    const timestamp = new Date(filter.date_from);
+                    date
+                      .add(timestamp.getHours(), 'hours')
+                      .add(timestamp.getMinutes(), 'minutes')
+                      .add(timestamp.getSeconds(), 'seconds');
+                  }
+                  console.log(date, date.format('YYYY-MM-DD HH:mm:ss'));
+                  setFilterValue({
+                    ...filter,
+                    id: undefined,
+                    date_from: date.format('YYYY-MM-DD HH:mm:ss'),
+                  });
+                }}
+                setActive={(status) => {
+                  if (!status) {
+                    modal.close('calendar_form_filter_from');
+                  }
+                }}
+              />,
+              'center',
+            );
+          }}
+          img
         >
           <input
             type="text"
@@ -109,35 +146,68 @@ const ApplicationsPage = () => {
             id="date_from"
             name="date_from"
             autoComplete="off"
-            defaultValue={filter.date_from?.toISOString().split('T')[0]}
-            onChange={(event) =>
+            value={filter.date_from?.toString().replace('T', ' ').slice(0, 19)}
+            onChange={(event) => {
               setFilterValue({
                 ...filter,
                 id: undefined,
                 date_from: event.target.value.length
-                  ? new Date(event.target.value)
+                  ? (event.target.value as unknown as Date)
                   : undefined,
-              })
-            }
+              });
+            }}
           />
         </InputComponentChildren>
-        <InputComponentChildren hasValue={!!filter.date_to} labelText="date_to">
+        <InputComponentChildren
+          hasValue={!!filter.date_to}
+          labelText="date_to"
+          source={CalendarImage}
+          imgHandler={() => {
+            modal?.open(
+              <Calendar
+                active={true}
+                setDay={(date) => {
+                  if (filter.date_to) {
+                    const timestamp = new Date(filter.date_to);
+                    date
+                      .add(timestamp.getHours(), 'hours')
+                      .add(timestamp.getMinutes(), 'minutes')
+                      .add(timestamp.getSeconds(), 'seconds');
+                  }
+                  console.log(date, date.format('YYYY-MM-DD HH:mm:ss'));
+                  setFilterValue({
+                    ...filter,
+                    id: undefined,
+                    date_to: date.format('YYYY-MM-DD HH:mm:ss'),
+                  });
+                }}
+                setActive={(status) => {
+                  if (!status) {
+                    modal.close('calendar_form_filter_from');
+                  }
+                }}
+              />,
+              'center',
+            );
+          }}
+          img
+        >
           <input
             type="text"
             placeholder="date_to"
             name="date_to"
             id="date_to"
             autoComplete="off"
-            defaultValue={filter.date_to?.toISOString().split('T')[0]}
-            onChange={(event) =>
+            value={filter.date_to?.toString().replace('T', ' ').slice(0, 19)}
+            onChange={(event) => {
               setFilterValue({
                 ...filter,
                 id: undefined,
                 date_to: event.target.value.length
-                  ? new Date(event.target.value)
+                  ? (event.target.value as unknown as Date)
                   : undefined,
-              })
-            }
+              });
+            }}
           />
         </InputComponentChildren>
         <DropDownComponentChildren
@@ -153,10 +223,7 @@ const ApplicationsPage = () => {
             value={filter.status ?? ''}
             readOnly
           />
-          <div
-            className="drop-down-content"
-            onClick={() => console.log('test')}
-          >
+          <div className="drop-down-content">
             <span
               onClick={() =>
                 setFilterValue({
@@ -279,7 +346,6 @@ const ApplicationsPage = () => {
                 }}
                 onClick={() => {
                   if (confirm('Are you sure?')) {
-                    console.log('APPROVE', item.id);
                     store
                       .updateStatus(item.id, ApplicationStatus.Approved)
                       .then((res: any) => {

@@ -52,10 +52,8 @@ const FormBonusTicket: (props: {
     values: { ...bonusTicket },
   });
   useEffect(() => {
-    console.log(params);
     if (code && type === 'UPDATE') {
       bonusService.getTicket({ code }).then((res: any) => {
-        console.log(res);
         if (res) {
           setBonusTicket({
             ...res,
@@ -82,13 +80,11 @@ const FormBonusTicket: (props: {
   };
 
   const sendForm = async (props: typeof schema.__outputType) => {
-    console.log('bonusTicket form body', { ...bonusTicket });
     if (validtionForm()) {
       if (code && type === 'UPDATE') {
         return await bonusService
           .updateBonusTicket({ ...bonusTicket })
           .then((res) => {
-            console.log('res', res);
             if (res) {
               toast('BonusTicket updated successfully', { type: 'success' });
             } else {
@@ -103,7 +99,6 @@ const FormBonusTicket: (props: {
           userId: bonusTicket.user!.id,
         })
         .then((res) => {
-          console.log('res', res);
           if (res) {
             toast('BonusTicket created successfully', { type: 'success' });
           } else {

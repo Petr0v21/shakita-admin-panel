@@ -1,7 +1,7 @@
 import { GraphQLClient } from 'graphql-request';
 import { Tokens } from '../../generated/types';
 
-const endpoint = 'https://shakita-core.onrender.com/graphql';
+const endpoint = 'http://localhost:3000/graphql';
 
 export class GraphQLService {
   public graphQLClient: GraphQLClient;

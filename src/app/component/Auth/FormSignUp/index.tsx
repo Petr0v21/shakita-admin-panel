@@ -133,7 +133,7 @@ const FormSignUp: React.FC = (props) => {
         labelText="password*"
         errorMessage={errors.password?.message}
         eye={eye.password}
-        eyeHandler={() => {
+        imgHandler={() => {
           setEye({ ...eye, password: !eye.password });
         }}
       >
@@ -157,7 +157,7 @@ const FormSignUp: React.FC = (props) => {
         labelText="confirm_password*"
         errorMessage={errors.confirm_password?.message}
         eye={eye.confirm_password}
-        eyeHandler={() => {
+        imgHandler={() => {
           setEye({ ...eye, confirm_password: !eye.confirm_password });
         }}
       >

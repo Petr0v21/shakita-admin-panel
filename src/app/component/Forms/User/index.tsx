@@ -55,7 +55,6 @@ const FormUser: (props: { type: 'CREATE' | 'UPDATE' }) => React.JSX.Element = ({
   useEffect(() => {
     if (id && type === 'UPDATE') {
       store.findOne({ id }).then((res: any) => {
-        console.log(res);
         if (res) {
           setUser(res);
         }
@@ -65,7 +64,6 @@ const FormUser: (props: { type: 'CREATE' | 'UPDATE' }) => React.JSX.Element = ({
   const sendForm = async (props: typeof schema.__outputType) => {
     if (id && type === 'UPDATE') {
       const result = await store.update({ ...user, id });
-      console.log('RESULT FORM UPDATE', result);
       if (result) {
         toast('User updated successfully', { type: 'success' });
       } else {

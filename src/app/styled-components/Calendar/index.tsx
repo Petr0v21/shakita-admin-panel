@@ -428,3 +428,13 @@ export const TodayButton = styled.div`
     font-size: 18px;
   }
 `;
+
+export const GridWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #4d4c4d;
+  @media (min-width: 925px) {
+    grid-gap: 1px;
+    border: 1px solid #4d4c4d;
+  }
+`;

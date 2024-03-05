@@ -20,7 +20,6 @@ class AuthStore {
   }
 
   cleanForm() {
-    console.log('clear');
     this.authFormState = {
       name: '',
       email: '',
@@ -38,7 +37,6 @@ class AuthStore {
         password: this.authFormState.password,
         phone: this.authFormState.phone,
       });
-      console.log('Auth Store signUp', result);
       return result;
     } catch (e) {
       throw e;
@@ -51,7 +49,7 @@ class AuthStore {
         email: this.authFormState.email,
         password: this.authFormState.password,
       });
-      console.log('Auth Store logIn', result);
+
       return result;
     } catch (e) {
       throw e;
@@ -63,7 +61,7 @@ class AuthStore {
       const result = await this.authService.logout({
         token,
       });
-      console.log('Auth Store logIn', result);
+
       return result;
     } catch (e) {
       throw e;
@@ -75,7 +73,6 @@ class AuthStore {
       const result = await this.authService.googleAuth({
         token,
       });
-      console.log('Auth Store googleAuth', result);
       return result;
     } catch (e) {
       throw e;

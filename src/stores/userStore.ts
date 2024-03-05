@@ -44,7 +44,7 @@ class UserStore {
       const accessToken = (
         await JSON.parse(localStorage.getItem('tokens') as string)
       ).accessToken;
-      const result = await fetch('https://shakita-core.onrender.com/file/upload', {
+      const result = await fetch('http://localhost:3000/file/upload', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -55,7 +55,6 @@ class UserStore {
         .then((res) => res.json())
         .then((json) => json)
         .catch((err) => console.error(err));
-      console.log(result);
       return result;
     } catch (error) {
       console.error('Error:', error);
@@ -70,10 +69,9 @@ class UserStore {
         }
       | null
       | undefined = await this.handleFileUpload(event);
-    console.log(res);
+
     if (res) {
       this.user.picture = res.Location;
-      console.log(this.user.picture);
     }
   }
 
@@ -82,7 +80,6 @@ class UserStore {
       const result = await this.userService.getMyInfo();
       if ((result as any)?.id) {
         this.user = result as any;
-        console.log({ ...this.user });
         return true;
       } else {
         return false;
@@ -95,9 +92,8 @@ class UserStore {
 
   async find(args: QueryFindUsersArgs) {
     try {
-      console.log('args', args);
       const result = await this.userService.find(args);
-      console.log('result', result);
+
       return result;
     } catch (e) {
       console.error(e);
@@ -107,9 +103,8 @@ class UserStore {
 
   async findOne(args: QueryFindOneUserArgs) {
     try {
-      console.log('args', args);
       const result = await this.userService.findOne(args);
-      console.log('result', result);
+
       return result;
     } catch (e) {
       console.error(e);
@@ -119,7 +114,6 @@ class UserStore {
 
   async updateMe() {
     try {
-      console.log({ ...this.user });
       const result = await this.userService.update({
         id: this.user.id,
         name: this.user.name,
@@ -131,7 +125,6 @@ class UserStore {
         picture: this.user.picture,
       });
       if ((result as any)?.success) {
-        console.log('after', { ...this.user });
         return true;
       } else {
         return false;
@@ -145,7 +138,6 @@ class UserStore {
   async create(args: MutationCreateOneUserArgs) {
     try {
       const result = await this.userService.createOneUser(args);
-      console.log(result);
       return result;
     } catch (err) {
       console.error('findOne Error', err);

@@ -38,7 +38,10 @@ const FormUser: (props: { type: 'CREATE' | 'UPDATE' }) => React.JSX.Element = ({
   const [application, setApplication] = useState<ApplicationDBType>({
     id: '',
     email: '',
-    date: new Date().toISOString().replace('T', ' ').slice(0, 19),
+    date: new Date(new Date().setSeconds(0))
+      .toISOString()
+      .replace('T', ' ')
+      .slice(0, 19),
     enable_notification: true,
     name: '',
     place: '',
@@ -58,7 +61,6 @@ const FormUser: (props: { type: 'CREATE' | 'UPDATE' }) => React.JSX.Element = ({
   useEffect(() => {
     if (id && type === 'UPDATE') {
       store.findOne(id).then((res: any) => {
-        console.log(res);
         if (res) {
           setApplication({
             ...res,
@@ -91,7 +93,6 @@ const FormUser: (props: { type: 'CREATE' | 'UPDATE' }) => React.JSX.Element = ({
 
   const sendForm = async (props: typeof schema.__outputType) => {
     if (validtionForm()) {
-      console.log('application form body', { ...application });
       if (id && type === 'UPDATE') {
         return await store.update({ ...application }).then((res) => {
           if (res) {
@@ -180,7 +181,6 @@ const FormUser: (props: { type: 'CREATE' | 'UPDATE' }) => React.JSX.Element = ({
             <Draw
               tablesChoosed={application.place}
               choseHandler={(place: string) => {
-                console.log('handler', place);
                 setApplication({
                   ...application,
                   place,

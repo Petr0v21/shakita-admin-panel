@@ -109,9 +109,7 @@ export const ExitButton: React.FC<{ text: string; handler?: () => any }> = ({
   handler,
 }) => {
   return (
-    <StyledExitButton
-      onClick={() => (handler ? handler() : console.log('Exit'))}
-    >
+    <StyledExitButton onClick={() => (handler ? handler() : undefined)}>
       <span>{text}</span>
       <img alt="exit" src={LogOutIcon} />
     </StyledExitButton>

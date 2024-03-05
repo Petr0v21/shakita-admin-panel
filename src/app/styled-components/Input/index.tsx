@@ -8,10 +8,12 @@ export type InputProps = {
   hideArrows?: boolean;
   size?: string;
   name?: string;
+  placeholder?: string;
+  title?: string;
   type?: string;
   text?: string;
   changeHandler?: (event: any) => void;
-  eyeHandler?: () => void;
+  imgHandler?: () => void;
   min?: string;
   max?: string;
   disable?: boolean;
@@ -32,11 +34,12 @@ export type InputProps = {
   labelText?: string;
   errorMessage?: string;
   readOnly?: boolean;
+  source?: any;
 };
 
 export const StyledContainer = styled.div<InputProps & { hasValue: boolean }>`
-  // margin: 1em 0 1.5em 0;
-  margin: 1em 0; // TODO test this
+  margin: 1em 0 1.5em 0;
+  // margin: 1em 0; // TODO test this
   position: relative;
   max-width: 400px;
   font-size: 12px;
@@ -131,6 +134,7 @@ export const StyledContainer = styled.div<InputProps & { hasValue: boolean }>`
     input,
     textarea {
       padding: 10px;
+      ${({ img }) => (img ? 'padding-right: calc(2em + 18px);' : '')}
     }
     img {
       width: 18px;
@@ -155,6 +159,7 @@ export const StyledContainer = styled.div<InputProps & { hasValue: boolean }>`
     font-size: 14px;
     input {
       padding: 10px;
+      ${({ img }) => (img ? 'padding-right: calc(2em + 14px);' : '')}
     }
     img {
       width: 14px;
@@ -165,6 +170,8 @@ export const StyledContainer = styled.div<InputProps & { hasValue: boolean }>`
   @media ${device.mobileS} {
     font-size: 12px;
     width: 200px;
+
+    ${({ img }) => (img ? ' input {padding-right: calc(2em + 12px);}' : '')}
     img {
       width: 12px;
       height: 12px;
@@ -245,12 +252,23 @@ export const InputComponentChildren: React.FC<
           src={props.eye ? Show : Hide}
           alt="img"
           onClick={() => {
-            if (props.eyeHandler) {
-              props.eyeHandler();
+            if (props.imgHandler) {
+              props.imgHandler();
             }
           }}
         />
       ) : undefined}
+      {props.img && props.source && props.eye === undefined && (
+        <StyledImg
+          src={props.source}
+          alt="img"
+          onClick={() => {
+            if (props.imgHandler) {
+              props.imgHandler();
+            }
+          }}
+        />
+      )}
       <p title={props.errorMessage}>{props.errorMessage}</p>
     </StyledContainer>
   );

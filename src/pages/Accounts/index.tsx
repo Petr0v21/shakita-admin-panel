@@ -26,7 +26,6 @@ const AccountsPage: React.FC = () => {
       })
       .then((res) => {
         if (res) {
-          console.log(res);
           setList(
             withFilter
               ? (res as AccountDBType[])
@@ -42,14 +41,12 @@ const AccountsPage: React.FC = () => {
 
   useEffect(() => {
     if (show) {
-      console.log('show filter', { ...filter });
       getList();
       setShow(false);
     }
   }, [show]);
 
   useEffect(() => {
-    console.log(filter);
     getList(true);
   }, [filter]);
 
@@ -57,7 +54,6 @@ const AccountsPage: React.FC = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          console.log('Seeee C!!!!!!!');
           setShow(true);
         }
       },

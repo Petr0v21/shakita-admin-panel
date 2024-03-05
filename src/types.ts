@@ -1,8 +1,8 @@
 import { ApplicationStatus, UserRole } from './generated/types';
 
 export type ApplicationFilter = {
-  date_from?: Date;
-  date_to?: Date;
+  date_from?: Date | string;
+  date_to?: Date | string;
   status?: ApplicationStatus;
   id?: string;
   place?: string;

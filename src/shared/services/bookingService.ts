@@ -27,7 +27,6 @@ export class BookingService {
       }),
       data,
     );
-    console.log('book', res);
     return res;
   }
 
@@ -42,7 +41,6 @@ export class BookingService {
       }),
       data,
     );
-    console.log('find', res);
     return res;
   }
 
@@ -68,7 +66,6 @@ export class BookingService {
       }),
       data,
     );
-    console.log('find', res);
     return res;
   }
 
@@ -84,7 +81,6 @@ export class BookingService {
       }),
       data,
     );
-    console.log('find', res);
     return res;
   }
 
@@ -95,7 +91,6 @@ export class BookingService {
       }),
       data,
     );
-    console.log('update', res);
     return res;
   }
 
@@ -106,7 +101,6 @@ export class BookingService {
       }),
       data,
     );
-    console.log('delete', res);
     return res;
   }
 }

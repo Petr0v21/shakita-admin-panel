@@ -52,7 +52,6 @@ const FormBonus: (props: {
   useEffect(() => {
     if (id && type === 'UPDATE') {
       bonusService.findBonusBy({ id }).then((res: any) => {
-        console.log(res);
         if (res?.length) {
           setBonus({
             ...res[0],
@@ -63,10 +62,8 @@ const FormBonus: (props: {
   }, []);
 
   const sendForm = async (props: typeof schema.__outputType) => {
-    console.log('bonus form body', { ...bonus });
     if (id && type === 'UPDATE') {
       return await bonusService.updateBonus({ ...bonus }).then((res) => {
-        console.log('res', res);
         if (res) {
           toast('Bonus updated successfully', { type: 'success' });
         } else {
@@ -75,7 +72,6 @@ const FormBonus: (props: {
       });
     }
     return await bonusService.createBonus({ ...bonus }).then((res) => {
-      console.log('res', res);
       if (res) {
         toast('Bonus created successfully', { type: 'success' });
       } else {
